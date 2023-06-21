@@ -59,7 +59,8 @@ Go to your terminal and follow the instruction
  
 - To run the test file type
  `npm start` 
- ## Now on the browser under [htt](http://localhost:3000/) upload test_success.ts/ test_failure.ts file and hit the upload button 
+ ## Now on the browser under [http](http://localhost:3000/) 
+ - upload test_success.ts/ test_failure.ts file and hit the upload button 
  
  ### OR
  
