@@ -1,5 +1,5 @@
 const express = require("express");
-const parseMPEGTS = require("../mpegts-parser");
+const parseMPEGTS = require("../models/mpegts-parser");
 const router = express.Router();
 
 router.post("/", async (req, res) => {

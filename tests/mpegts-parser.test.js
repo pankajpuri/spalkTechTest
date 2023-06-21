@@ -1,4 +1,4 @@
-const mpegparser = require("../mpegts-parser");
+const mpegparser = require("../models/mpegts-parser");
 const fs = require("fs");
 const path = require("path");
 
