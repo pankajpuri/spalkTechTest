@@ -1,17 +1,16 @@
 function parseMPEGTS(data) {
-  const packetSize = 188; // Size of each TS packet in bytes
-  const syncByte = 0x47; // Sync byte indicating the start of a packet
-  const packets = []; // Array to store parsed packet IDs
-  const errors = []; // Array to store error information
-  const pids = new Set(); // Set to store unique PIDs
-  let index = 0; // Index of the current packet being processed
-  let offset = 0; // Byte offset within the input stream
-  let firstPacketComplete = false; // Flag indicating if the first packet is complete
+  const packetSize = 188;
+  const syncByte = 0x47;
+  const packets = [];
+  const errors = [];
+  const pids = new Set();
+  let index = 0;
+  let offset = 0;
+  let firstPacketComplete = false;
 
   for (let i = 0; i < data.length; i++) {
     const byte = data[i];
 
-    // If the first packet is not complete, continue until a sync byte is found
     if (!firstPacketComplete) {
       if (byte !== syncByte) {
         continue;
@@ -28,7 +27,6 @@ function parseMPEGTS(data) {
 
   function parsePacket(packetData) {
     if (packetData[0] !== syncByte) {
-      // If the sync byte is missing, record an error
       errors.push({ index, offset });
       return;
     }

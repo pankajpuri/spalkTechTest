@@ -9,10 +9,10 @@ const port = process.env.PORT || 8000;
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// Configure file upload middleware
+
 app.use(
   fileUpload({
-    limits: { fileSize: 100 * 1024 * 1024 }, // 10MB file size limit (adjust as needed)
+    limits: { fileSize: 100 * 1024 * 1024 },
   })
 );
 app.use("/api/mpegparser", mpegParserRouter);
