@@ -1,4 +1,4 @@
-# spalkTechTest
+# Spalk TechTest
 
 # Hi, I am Pankaj Puri
 
