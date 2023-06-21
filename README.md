@@ -40,6 +40,9 @@ Go to your terminal and follow the instruction
 
  `npm install`
  
+ - files folder contains test files and their outputs
+ - models content mpegts-parser.js which takes mpegts 
+ 
 - To run the test file type
  `npm test` 
  
