@@ -49,7 +49,7 @@ Go to your terminal and follow the instruction
  `cat ./files/test_success.ts | node ./models/mpegts-parser.js`
  
 ### Next
-##If you want to run the client side and use API from mpegts-Parser-API-Node
+## If you want to run the client side and use API from mpegts-Parser-API-Node
 - Enter `node server.js` in the terminal under mpegts-Parser-API-Node for example:`mpegts-Parser-API-Node% node server.js`
 - Right click on the `client` and click on Open in integerated terminal or navgiate to client folder
 
@@ -59,7 +59,7 @@ Go to your terminal and follow the instruction
  
 - To run the test file type
  `npm start` 
- ##Now on the browser under [htt](http://localhost:3000/) upload test_success.ts/ test_failure.ts file and hit the upload button 
+ ## Now on the browser under [htt](http://localhost:3000/) upload test_success.ts/ test_failure.ts file and hit the upload button 
  
  ### OR
  
