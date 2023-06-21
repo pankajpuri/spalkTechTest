@@ -1,76 +1,81 @@
-class MpegtsParser {
-  constructor() {
-    this.packetSize = 188;
-    this.syncByte = 0x47;
-    this.packets = []; //store parsed packetIDs
-    this.pids = new Set(); // stored unique packetIDs
-    this.errors = [];
-    this.index = 0;
-    this.offset = 0;
-    this.firstPacketComplete = false; // flag to indicate if the first packet is complete
-  }
+function parseMPEGTS(data) {
+  const packetSize = 188; // Size of each TS packet in bytes
+  const syncByte = 0x47; // Sync byte indicating the start of a packet
+  const packets = []; // Array to store parsed packet IDs
+  const errors = []; // Array to store error information
+  const pids = new Set(); // Set to store unique PIDs
+  let index = 0; // Index of the current packet being processed
+  let offset = 0; // Byte offset within the input stream
+  let firstPacketComplete = false; // Flag indicating if the first packet is complete
 
-  parse(data) {
-    for (let i = 0; i < data.length; i++) {
-      const byte = data[i];
+  for (let i = 0; i < data.length; i++) {
+    const byte = data[i];
 
-      if (!this.firstPacketComplete) {
-        if (byte !== this.syncByte) continue;
-        this.firstPacketComplete = true;
+    // If the first packet is not complete, continue until a sync byte is found
+    if (!firstPacketComplete) {
+      if (byte !== syncByte) {
+        continue;
       }
 
-      this.offset++;
-
-      const packetData = data.slice(i, i + this.packetSize);
-
-      this.parsePacket(packetData);
-
-      this.index++;
-      i += this.packetSize - 1;
+      firstPacketComplete = true;
     }
+    offset++;
+    const packetData = data.slice(i, i + packetSize);
+    parsePacket(packetData);
+    index++;
+    i += packetSize - 1;
   }
-  parsePacket(packetData) {
-    if (packetData[0] !== this.syncByte) {
-      this.errors.push({ index: this.index, offset: this.offset });
+
+  function parsePacket(packetData) {
+    if (packetData[0] !== syncByte) {
+      // If the sync byte is missing, record an error
+      errors.push({ index, offset });
       return;
     }
+
     const pid = ((packetData[1] & 0x1f) << 8) | packetData[2];
-    this.packets.push(pid);
-    this.pids.add(pid);
+    packets.push(pid);
+    pids.add(pid);
   }
 
-  printErrors() {
-    for (const error of this.errors) {
-      console.error(
-        `Error: No sync byte present in packet ${erro.index}, offset ${error.offset}`
-      );
-    }
+  function getPacketIDs() {
+    return Array.from(pids).sort((a, b) => a - b);
   }
-  printPids() {
-    const sortedPids = Array.from(this.pids).sort((a, b) => a - b);
-    for (const pid of sortedPids) {
-      console.log(`0x${pid.toString(16).toUpperCase()}`);
-    }
-  }
-  run() {
-    const chunks = [];
-    process.stdin.on("data", (chunk) => {
-      chunks.push(chunk);
-    });
-    process.stdin.on("end", () => {
-      const data = Buffer.concat(chunks);
-      this.parse(data);
 
-      if (this.errors.length > 0) {
-        this.printErrors();
-        process.exit(1);
-      } else {
-        this.printPids();
-        process.exit(0);
-      }
-    });
-  }
+  return {
+    errors,
+    offset,
+    index,
+    getPacketIDs,
+  };
 }
-const parser = new MpegtsParser();
-parser.run();
-module.exports = MpegtsParser;
+
+function runParser() {
+  const chunks = [];
+  process.stdin.on("data", (chunk) => {
+    chunks.push(chunk);
+  });
+
+  process.stdin.on("end", () => {
+    const data = Buffer.concat(chunks);
+    const result = parseMPEGTS(data);
+
+    if (result.errors.length > 0) {
+      result.errors.forEach((error) => {
+        console.error(
+          `Error: No sync byte present in packet ${error.index}, offset ${error.offset}`
+        );
+      });
+      process.exit(1);
+    } else {
+      result.getPacketIDs().forEach((pid) => {
+        console.log(`0x${pid.toString(16).toUpperCase()}`);
+      });
+      process.exit(0);
+    }
+  });
+}
+
+runParser();
+
+module.exports = parseMPEGTS;
