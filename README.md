@@ -36,12 +36,14 @@ Go to your terminal and follow the instruction
 
 - Navigate to mpegts-Parser-API-Node
 
+ - files folder contains test files and their outputs.
+ - models content `mpegts-parser.js` which takes mpeg stream file and extract PacketIDs if available else throws back the error with packets and offsets.
+ - routers folder content `mpegts-parser.js` which handle the route operation and send back the response.
+ - tests folder contain test file `mpegts-parser.test` which has two unit tests in it.
+
 - Install NPM packages
 
  `npm install`
- 
- - files folder contains test files and their outputs
- - models content mpegts-parser.js which takes mpegts 
  
 - To run the test file type
  `npm test` 
@@ -55,7 +57,10 @@ Go to your terminal and follow the instruction
 ## If you want to run the client side and use API from mpegts-Parser-API-Node
 - Enter `node server.js` in the terminal under mpegts-Parser-API-Node for example:`mpegts-Parser-API-Node% node server.js`
 - Right click on the `client` and click on Open in integerated terminal or navgiate to client folder
-
+- Component folder is under source folder which contains the main frontend for the client side view.
+- Styles folder contains `uploadStream.css` which contain styles for uploadStream.js file.
+- services folder contain `httpService.js` which contain `uploadMedia` function that handles the http request.
+- 
 - Install NPM packages
 
  `npm install`
