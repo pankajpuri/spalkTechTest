@@ -15,10 +15,11 @@ function parseMPEGTS(data) {
       if (byte !== syncByte) {
         continue;
       }
-
       firstPacketComplete = true;
+    } else {
+      offset += packetSize;
     }
-    offset++;
+
     const packetData = data.slice(i, i + packetSize);
     parsePacket(packetData);
     index++;
@@ -55,9 +56,7 @@ function runParser() {
   });
 
   process.stdin.on("end", () => {
-    const data = Buffer.concat(chunks);
     const result = parseMPEGTS(data);
-
     if (result.errors.length > 0) {
       result.errors.forEach((error) => {
         console.error(

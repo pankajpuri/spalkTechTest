@@ -30,7 +30,7 @@ describe("parseMPEGTS", () => {
     );
     const expectedResult = {
       packet: 20535,
-      offset: 20536,
+      offset: 3860580,
     };
     const result = mpegparser(data);
     const errors = result.errors[0];
