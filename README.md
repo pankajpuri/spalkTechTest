@@ -42,23 +42,26 @@ Go to your terminal and follow the instruction
 - Navigate to mpegts-Parser-API-Node
 
  - **files** folder contains test files and their outputs.
- - **models** content `mpegts-parser.js` which takes mpeg stream file and extract PacketIDs if available else throws back the error with packets and offsets.
- - **routers** folder content `mpegts-parser.js` which handle the route operation and send back the response.
+ - **models** content `mpegts-parser.js` which takes mpeg stream file and extracts PacketIDs if available else throws back the error with packets and offsets.
+ - **routers** folder content `mpegts-parser.js` which handles the route operation and sends back the response.
  - **tests** folder contain the **test** file `mpegts-parser.test` which has two unit tests in it.
 
 - Install NPM packages
 
  `npm install`
- 
-- To run the test file, type the following script in the terminal under this directory: /spalkTechTest/mpegts-Parser-API-Node/
+
+ - Now to dead a byte stream from standard input, go to your terminal under *mpegts-Parser-API-Node* directory. For eg: */spalkTechTest/mpegts-Parser-API-Node/cat ./files/test_success.ts | node ./models/mpegts-parser.js*
+   
+ `cat ./files/test_success.ts | node ./models/mpegts-parser.js`
+
+  ### OR
+  
+- To run the test file, type the following script in the terminal under *mpegts-Parser-API-Node* directory. For eg: */spalkTechTest/mpegts-Parser-API-Node/npm test*
  `npm test` 
  
- ### OR
+
  
-- To run the test file from the command line
- `cat ./files/test_success.ts | node ./models/mpegts-parser.js`
- 
-### Next: If we want to take this feature to the next level for client use purposes.
+### Next: However, if we want to take this feature to the next level for client use purposes.
 ## If you want to run the client side and use API from mpegts-Parser-API-Node
 - Enter `node server.js` in the terminal under mpegts-Parser-API-Node for example:`/spalkTechTest/mpegts-Parser-API-Node% node server.js`
 - Next
@@ -67,11 +70,11 @@ Go to your terminal and follow the instruction
 - **styles** folder contains `uploadStream.css` which contains styles for the uploadStream.js file.
 - **services** folder contains `httpService.js` which contains the `uploadMedia` function that handles the HTTP request.
 - 
-- Install NPM packages
+- Install NPM packages under the client directory: */spalkTechTest/client% npm install*
 
- `npm install`
+ `npm install` 
  
-- To run the test file type
+- To run the test file type the following script in your terminal under this directory. For eg: */spalkTechTest/client% npm start*
  `npm start`
 
  ## Now on the browser under [http](http://localhost:3000/) 
