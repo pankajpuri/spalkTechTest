@@ -56,6 +56,7 @@ function runParser() {
   });
 
   process.stdin.on("end", () => {
+    const data = Buffer.concat(chunks);
     const result = parseMPEGTS(data);
     if (result.errors.length > 0) {
       result.errors.forEach((error) => {
